@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="site.css" type="text/css" />
+    <title>Albums | Taylor Swift</title>
+    <link rel="shortcut icon" href="images/kat.jpg" type="image" />
+
+    <style></style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+                <li>
+                    <a href="albums.html">Albums</a>
+                </li>
+                <li>
+                    <a href="contact.html">Contact Us</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <aside>
+            <img src="images/ticon.jfif" alt="Taylor's Vault" />
+        </aside>
+
+        <article>
+            <section class="columns-desktop"></section>
+            <div class="albums">
+                <img src="images/debut.png" alt="" />
+                <div class="columns">
+                    <div class="title">Taylor SWift - Debut</div>
+                    <div class="price">$400</div>
+                </div>
+                <p class="desc">Released in 2006</p>
+                <button id="button" data-order="debut">Order</button>
+            </div>
+            <div class="albums">
+                <img src="images/Fearless.png" alt="" />
+                <div class="columns">
+                    <div class="title">Fearless</div>
+                    <div class="price">$400</div>
+                </div>
+                <p class="desc">Released in 2008</p>
+                <button id="button" data-order="fearless">Order</button>
+            </div>
+            <div class="albums">
+                <img src="images/speakNow.png" alt="" />
+                <div class="columns">
+                    <div class="title">Speak Now</div>
+                    <div class="price">$400</div>
+                </div>
+                <p class="desc">Released in 2010</p>
+                <button id="button" data-order="speakNow">Order</button>
+            </div>
+            <div class="albums">
+                <img src="images/Red.png" alt="" />
+                <div class="columns">
+                    <div class="title">RED</div>
+                    <div class="price">$400</div>
+                </div>
+                <p class="desc">Released in 2012</p>
+                <button id="button" data-order="red">Order</button>
+            </div>
+            <div class="albums">
+                <img src="images/1989.png" alt="" />
+                <div class="columns">
+                    <div class="title">1989</div>
+                    <div class="price">$400</div>
+                </div>
+                <p class="desc">Released in 2014</p>
+                <button id="button" data-order="1989">Order</button>
+            </div>
+            <div class="albums">
+                <img src="images/reputation.png" alt="" />
+                <div class="columns">
+                    <div class="title">Reputation</div>
+                    <div class="price">$400</div>
+                </div>
+                <p class="desc">Released in 2017</p>
+                <button id="button" data-order="reputation">Order</button>
+            </div>
+            <div class="albums">
+                <img src="images/lover.png" alt="" />
+                <div class="columns">
+                    <div class="title">Lover</div>
+                    <div class="price">$400</div>
+                </div>
+                <p class="desc">Released in 2019</p>
+                <button id="button" data-order="lover">Order</button>
+            </div>
+            <div class="albums">
+                <img src="images/folklore.png" alt="" />
+                <div class="columns">
+                    <div class="title">Folklore</div>
+                    <div class="price">$400</div>
+                </div>
+                <p class="desc">Released in 2020</p>
+                <button id="button" data-order="folklore">Order</button>
+            </div>
+            <div class="albums">
+                <img src="images/evermore.png" alt="" />
+                <div class="columns">
+                    <div class="title">Evermore</div>
+                    <div class="price">$400</div>
+                </div>
+                <p class="desc">Released in 2020</p>
+                <button id="button" data-order="evermore">Order</button>
+            </div>
+        </article>
+    </main>
+    <footer>
+        <nav>
+            <ul>
+                <li>
+                    <a href="/"></a>Home</li>
+                <li><a href="contact.html">Contact us</a></li>
+            </ul>
+        </nav>
+    </footer>
+</body>
+<script>
+    window.addEventListener("DOMContentLoaded", function(e) {
+        const orderButtons = document.querySelectorAll("button[data-order]");
+        orderButtons.forEach(function(button) {
+            button.addEventListener("click", function(e) {
+                const button = e.currentTarget;
+                const container = button.parentNode;
+                const order = {
+                    id: button.getAttribute("data-order"),
+                    title: container.querySelector(".title").innerText,
+                    price: container.querySelector(".price").innerText,
+                    desc: container.querySelector(".desc").innerText
+                };
+
+                localStorage.setItem("order", JSON.stringify(order));
+                const url = window.location.href.replace("albums.html", "order.html")
+                window.location.href = url;
+            });
+        });
+    });
+</script>
+
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="site.css" type="text/css" />
+    <title>Order | Taylor Swift</title>
+    <link rel="shortcut icon" href="images/kat.jpg" type="image" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<style>
+    @media only screen and (min-width:768px) {
+        article {
+            width: 350px;
+        }
+    }
+    
+    input,
+    textarea,
+    select {
+        background-color: rgb(255, 255, 255, 0.4);
+        border: 1px solid rgba(106, 180, 226, 0.6);
+        border-radius: 4px;
+    }
+    
+    .container>div {
+        padding: 5px;
+        font-family: 'Times New Roman', Times, serif;
+    }
+    
+    .album {
+        background-blend-mode: lighten;
+        width: 330px;
+        background-color: rgb(255, 255, 255, 0.3);
+        border-radius: 8px;
+        margin-bottom: 50px;
+    }
+    
+    .album>div,
+    .album>p {
+        padding-left: 6px;
+    }
+    
+    .title {
+        width: 80%;
+    }
+    
+    .album>img {
+        height: 330px;
+        border: 5px white;
+        border-radius: 6px;
+        padding: 5px;
+    }
+</style>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <a href="index.html">Home</a>
+                </li>
+                <li>
+                    <a href="albums.html">Albums</a>
+                </li>
+                <li>
+                    <a href="contact.html">Contact Us</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <aside><img src="images/ticon.jfif" alt="Taylor's Vault" /></aside>
+        <article>
+            <h1>Order</h1>
+            <div class="album">
+                <img src="" alt="" />
+                <div class="columns">
+                    <div class="title" style="font-weight:bold; word-wrap: break-word;"></div>
+                    <div class="price"></div>
+                </div>
+                <p class="desc"></p>
+            </div>
+            <form action="http://localhost:3000/order/post" method="post" id="orderForm">
+                <input type="hidden" id="album-order" name="album-order">
+                <input type="hidden" id="location" name="location">
+                <div class="container">
+                    <div>
+                        <label for="fname">First Name</label>
+                        <input type="text" name="fname" id="fname">
+                    </div>
+                    <div>
+                        <label for="lname">Last Name</label>
+                        <input type="text" name="lname" id="lname">
+                    </div>
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email">
+                    </div>
+                    <div>
+                        <label for="phone">Phone Number</label>
+                        <input type="number" name="phone" id="phone">
+                    </div>
+                    <div>
+                        Gender
+                        <div>
+                            <label for="male">Male</label>
+                            <input type="radio" name="gender" id="male"></div>
+                        <div>
+                            <label for="female">Female</label>
+                            <input type="radio" name="gender" id="female">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password">
+                    </div>
+                    <div><label for="comments">Comments</label><br>
+                        <textarea name="comments" id="comments" cols="30" rows="5"></textarea>
+                    </div>
+                    <div>
+                        <label for="paymentType">Payment Method</label>
+                        <select name="paymentType" id="paymentType">
+                            <option value="upi">UPI</option>
+                            <option value="credit">Credit Card</option>
+                            <option value="wallet">Wallet</option>
+                            <option value="cod">Cash on delivery</option>
+                        </select>
+                    </div>
+                    <div><button type="submit">Order</button>
+                        <button type="reset">Clear</button></div>
+                </div>
+            </form>
+        </article>
+    </main>
+    <footer>
+        <nav>
+            <ul>
+                <li>
+                    <a href="/"></a>Home</li>
+                <li><a href="contact.html">Contact us</a></li>
+            </ul>
+        </nav>
+    </footer>
+    <script src="./index.js">
+    </script>
+</body>
+<script>
+    window.addEventListener("DOMContentLoaded", function(e) {
+
+        let locationBox = document.querySelector("#location");
+        let location = {
+            latitude: "unknown",
+            longitude: "unknown"
+        };
+
+        window.navigator.geolocation.getCurrentPosition(
+            function(position) {
+                location = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                };
+                locationBox.value = JSON.stringify(location);
+            },
+            function(error) {
+                locationBox.value = JSON.stringify(location);
+            });
+        const order = localStorage.getItem("order");
+
+        if (order) {
+            const albumOrder = JSON.parse(order);
+
+            const album = document.querySelector(".album");
+            const title = album.querySelector(".title");
+            const price = album.querySelector(".price");
+            const desc = album.querySelector(".desc");
+            const orderInput = document.querySelector("#album-order");
+
+            title.innerText = albumOrder.title;
+            price.innerText = albumOrder.price;
+            desc.innerText = albumOrder.desc;
+            orderInput.value = order;
+            const img = album.querySelector("img");
+            img.setAttribute("src", `images/${albumOrder.id}.png`);
+
+        }
+    });
+</script>
+
+</html>
